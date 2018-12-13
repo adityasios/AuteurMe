@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     // MARK:-  VC LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUI()
     }
     
     
@@ -35,7 +35,6 @@ class ViewController: UIViewController {
         }
         
     }
-    
 }
 
 
@@ -60,9 +59,3 @@ extension ViewController : UITableViewDataSource {
 
 
 
-
-/*
-let myAttribute = [NSAttributedStringKey.foregroundColor: UIColor.blue,NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize: 22)]
-navigationController?.navigationBar.largeTitleTextAttributes = myAttribute
-navigationItem.largeTitleDisplayMode = .automatic
-*/
