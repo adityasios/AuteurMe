@@ -15,13 +15,15 @@ class ViewController: UIViewController {
     // MARK:-  VC LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        initFunction()
         setUI()
     }
     
     
     // MARK:-  INIT
     func initFunction()  {
-        
+        tblv.rowHeight = UITableViewAutomaticDimension
+        tblv.estimatedRowHeight = 500
     }
     
     // MARK:-  SET UI
@@ -35,6 +37,24 @@ class ViewController: UIViewController {
         }
         
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! DetailViewController
+        let index = tblv.indexPathForSelectedRow
+        destination.selectedAuteur = auteurs[(index?.row)!]
+    }
+    
+    
+    
+    
+    /*
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? DetailViewController,
+            let indexPath = tblv.indexPathForSelectedRow {
+            destination.selectedAuteur = auteurs[indexPath.row]
+        }
+    }*/
 }
 
 
@@ -44,10 +64,26 @@ extension ViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
+        let authCell : AuteurTableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as!  AuteurTableViewCell
         let auteur = auteurs[indexPath.row]
-        cell.textLabel?.text = auteur.bio
-        return cell
+        authCell.lblbio.text = auteur.bio
+        
+        authCell.auteurImageView.layer.cornerRadius = authCell.auteurImageView.frame.size.width / 2
+        authCell.auteurImageView.image = UIImage(named: auteur.image)
+        authCell.nameLabel.text = auteur.name
+        authCell.source.text = auteur.source
+        
+        
+        authCell.nameLabel.textColor = .white
+        authCell.lblbio.textColor = UIColor(red:0.75, green:0.75, blue:0.75, alpha:1.0)
+        authCell.source.textColor = UIColor(red:0.74, green:0.74, blue:0.74, alpha:1.0)
+        authCell.source.font = UIFont.italicSystemFont(ofSize: authCell.source.font.pointSize)
+        authCell.nameLabel.textAlignment = .center
+        authCell.selectionStyle = .none
+
+
+        return authCell
     }
 }
 
